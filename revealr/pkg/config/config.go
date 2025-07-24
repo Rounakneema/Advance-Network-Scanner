@@ -8,30 +8,29 @@ import (
 	"strings"
 	"time"
 
-	"revealr/pkg/output" // Update import path to your local module
-
+	"revealr/pkg/output"
 	"gopkg.in/yaml.v3"
 )
 
 // ScanConfig holds all configuration parameters for a scan.
 type ScanConfig struct {
-	// General Scan Settings
-	Targets       []string `yaml:"targets"`        // IP addresses or CIDR ranges
-	Ports         string   `yaml:"ports"`          // "all", "top1000", or "80,443,22"
-	ScanMode      string   `yaml:"scan_mode"`      // "connect" (for basic phase)
-	HostDiscovery []string `yaml:"host_discovery"` // "icmp", "tcp-probe"
+	// General
+	Targets       []string `yaml:"targets"`
+	Ports         string   `yaml:"ports"`
+	ScanMode      string   `yaml:"scan_mode"`      // NEW: Expanded list of scan modes
+	HostDiscovery []string `yaml:"host_discovery"` // NEW: Expanded list of host discovery methods
 	ExcludeHosts  []string `yaml:"exclude_hosts"`
 	Debug         bool     `yaml:"debug"`
 
-	// Scanner Specific Settings
-	Timeout     time.Duration `yaml:"timeout"`     // Timeout per port
-	Retries     int           `yaml:"retries"`     // Number of retries for a port (simple retry for now)
-	Concurrency int           `yaml:"concurrency"` // Max concurrent operations for port scanning
+	// Scanner Specific
+	Timeout     time.Duration `yaml:"timeout"`
+	Retries     int           `yaml:"retries"`
+	Concurrency int           `yaml:"concurrency"`
 
-	// Future Phases (placeholders for later development)
-	EnableOSINT      bool     `yaml:"enable_osint"`
+	// Future Phases (placeholders)
+	EnableOSINT      bool   `yaml:"enable_osint"`
 	OSINTSources     []string `yaml:"osint_sources"`
-	PythonPluginPort string   `yaml:"python_plugin_port"`
+	PythonPluginPort string `yaml:"python_plugin_port"`
 }
 
 // NewDefaultConfig creates and returns a default ScanConfig.
@@ -39,18 +38,19 @@ func NewDefaultConfig() *ScanConfig {
 	return &ScanConfig{
 		Targets:          []string{},
 		Ports:            "top1000",
-		ScanMode:         "connect",        // Default to TCP Connect for basic scanner
-		HostDiscovery:    []string{"icmp"}, // Default to ICMP for host discovery
+		ScanMode:         "connect", // Default remains connect
+		HostDiscovery:    []string{"tcp-probe"}, // FIX: Changed default to tcp-probe for public targets
 		ExcludeHosts:     []string{},
 		Debug:            false,
-		Timeout:          time.Second * 3, // 3 seconds timeout per port attempt
-		Retries:          1,               // Simple retry count
-		Concurrency:      1000,            // Default max concurrent goroutines for port scanner
+		Timeout:          time.Second * 3,
+		Retries:          1,
+		Concurrency:      1000,
 		EnableOSINT:      false,
 		OSINTSources:     []string{},
 		PythonPluginPort: "50051",
 	}
 }
+
 
 // LoadConfig loads configuration from a YAML file.
 // If the file doesn't exist or is empty, it returns a default config.

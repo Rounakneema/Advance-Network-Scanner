@@ -1,4 +1,4 @@
-// main.go
+// cmd/revealr/main.go
 package main
 
 import (
@@ -6,11 +6,11 @@ import (
 	"os"
 	"time"
 
-	"revealr/pkg/config" // Update import path
-	"revealr/pkg/core"   // Update import path
-	"revealr/pkg/output" // Update import path
-
 	"github.com/spf13/cobra"
+	"revealr/pkg/app"    // Correct: Import the app package for Orchestrator
+	"revealr/pkg/config"
+	"revealr/pkg/core"
+	"revealr/pkg/output"
 )
 
 // Global variables to hold CLI flag values. These are populated by Cobra.
@@ -33,8 +33,7 @@ var rootCmd = &cobra.Command{
 It combines active scanning, passive reconnaissance, deep service fingerprinting,
 and intelligent insights to reveal hidden vulnerabilities.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		// If no subcommand is given (e.g., just 'revealr'), print help.
-		cmd.Help()
+		cmd.Help() // If no subcommand is given, print help.
 	},
 }
 
@@ -44,7 +43,7 @@ var scanCmd = &cobra.Command{
 	Short: "Perform a network scan",
 	Long:  `Initiates a comprehensive network scan against specified targets.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		runScan() // Call the function that contains the main scan logic.
+		runScan() // Call the function that contains the main scan orchestration logic.
 	},
 }
 
@@ -60,10 +59,12 @@ func init() {
 	// Define flags specific to the 'scan' command (e.g., `revealr scan --target 192.168.1.1`).
 	scanCmd.Flags().StringSliceVarP(&targets, "target", "t", []string{}, "Target IP(s), CIDR(s), or hostname(s) (comma-separated)")
 	scanCmd.Flags().StringVarP(&ports, "ports", "p", "top1000", "Ports to scan (e.g., '80,443', '1-1024', 'all', 'top1000')")
-	scanCmd.Flags().StringVarP(&scanMode, "mode", "m", "connect", "Scan mode (connect)") // Only "connect" for basic phase
+	// FIX: Ensure all new scan modes are listed in the help text for the 'mode' flag.
+	scanCmd.Flags().StringVarP(&scanMode, "mode", "m", "connect", "Scan mode (connect, syn, fin, null, xmas, ack, window, maimon, udp)")
 	scanCmd.Flags().IntVarP(&concurrency, "concurrency", "c", 1000, "Maximum concurrent operations for port scanning")
 	scanCmd.Flags().StringVar(&timeout, "timeout", "3s", "Timeout for each port scan attempt (e.g., 1s, 500ms)")
-	scanCmd.Flags().StringSliceVar(&hostDiscovery, "host-discovery", []string{"icmp"}, "Host discovery methods (e.g., icmp)")
+	// FIX: Ensure all new host discovery methods are listed in the help text for the 'host-discovery' flag.
+	scanCmd.Flags().StringSliceVar(&hostDiscovery, "host-discovery", []string{"tcp-probe"}, "Host discovery methods (icmp, tcp-probe, arp, tcp-syn-ack-probe)") // Default changed to tcp-probe for reliability
 
 	// Add the 'scan' subcommand as a child of the root command.
 	rootCmd.AddCommand(scanCmd)
@@ -80,7 +81,7 @@ func initConfig() {
 	// after all flags have been parsed by Cobra.
 }
 
-// runScan contains the main logic for executing the network scan.
+// runScan contains the main logic for the 'scan' command, executed by Cobra.
 func runScan() {
 	// 1. Load configuration from the specified file and apply any overrides from CLI flags.
 	cfg, err := config.LoadConfig(cfgFile)
@@ -115,6 +116,9 @@ func runScan() {
 	}
 	cfg.Debug = debug // Set debug mode based on the CLI flag.
 
+	// Set the debug mode for the output package based on loaded/overridden config.
+	output.SetDebugMode(cfg.Debug)
+
 	// Ensure targets are provided, either via config file or CLI flag.
 	if len(cfg.Targets) == 0 {
 		output.PrintError("No targets specified. Use --target or configure in default_config.yaml")
@@ -131,7 +135,8 @@ func runScan() {
 	defer session.Close() // Ensure the database connection is closed when the scan finishes.
 
 	// 3. Initialize the Orchestrator and start the scan process.
-	orchestrator := core.NewOrchestrator(cfg, session)
+	// This delegates the core application logic to the 'app' package.
+	orchestrator := app.NewOrchestrator(cfg, session)
 	err = orchestrator.StartScan(cfg.Targets)
 	if err != nil {
 		output.PrintError("Scan operation failed: %v", err)

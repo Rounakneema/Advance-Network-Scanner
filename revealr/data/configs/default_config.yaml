@@ -1,0 +1,22 @@
+# data/configs/default_config.yaml
+# Default configuration for Revealr scans
+
+# General Scan Settings
+targets: []
+ports: "top1000"
+# FIX: Added all scan modes. Default remains "connect".
+scan_mode: "connect" # Options: "connect", "syn", "fin", "null", "xmas", "ack", "window", "maimon", "udp"
+# FIX: Added all host discovery methods. Default changed to "tcp-probe".
+host_discovery: ["tcp-probe"] # Options: "icmp", "tcp-probe", "arp", "tcp-syn-ack-probe"
+exclude_hosts: []
+debug: false
+
+# Scanner Specific Settings
+timeout: "3s"
+retries: 1
+concurrency: 1000
+
+# Future Phases (placeholders)
+enable_osint: false
+osint_sources: []
+python_plugin_port: "50051"

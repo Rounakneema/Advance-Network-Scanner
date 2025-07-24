@@ -10,7 +10,7 @@ import (
 
 	"revealr/pkg/output" // Corrected import path
 
-	_ "github.com/mattn/go-sqlite3" // SQLite driver import
+	_ "github.com/glebarez/go-sqlite" // FIX: Add underscore '_' here
 )
 
 // Session manages the state and results of a scan, persisting to a database.
@@ -30,7 +30,7 @@ func NewSession(dbPath string) (*Session, error) {
 		}
 	}
 
-	db, err := sql.Open("sqlite3", dbPath)
+	db, err := sql.Open("sqlite", dbPath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to open database: %w", err)
 	}

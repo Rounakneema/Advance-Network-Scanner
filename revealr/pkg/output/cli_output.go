@@ -20,9 +20,14 @@ const (
 )
 
 var (
-	// stdoutMux prevents interleaved prints from concurrent goroutines
-	stdoutMux sync.Mutex
+	stdoutMux      sync.Mutex
+	isDebugEnabled bool // NEW: Package-level variable to control debug output
 )
+
+// SetDebugMode sets whether debug messages should be printed.
+func SetDebugMode(enabled bool) {
+	isDebugEnabled = enabled
+}
 
 // PrintInfo prints informational messages in Cyan.
 func PrintInfo(format string, a ...interface{}) {
@@ -44,18 +49,18 @@ func PrintError(format string, a ...interface{}) {
 	printMessage(Red, "ERROR", format, a...)
 }
 
-// PrintDebug prints debug messages in Blue (only if debug mode is enabled).
-// For now, it always prints. Later, add a config check based on `cfg.Debug`.
+// PrintDebug prints debug messages in Blue, ONLY if debug mode is enabled.
 func PrintDebug(format string, a ...interface{}) {
-	// TODO: Integrate with a global debug flag from config
-	printMessage(Blue, "DEBUG", format, a...)
+	if isDebugEnabled { // FIX: Only print if debug is enabled
+		printMessage(Blue, "DEBUG", format, a...)
+	}
 }
 
 // printMessage is a helper to format and print messages safely.
 func printMessage(color, prefix, format string, a ...interface{}) {
 	stdoutMux.Lock()
 	defer stdoutMux.Unlock()
-	timestamp := time.Now().Format("15:04:05") // Format: HH:MM:SS
+	timestamp := time.Now().Format("15:04:05")
 	fmt.Fprintf(os.Stdout, "%s[%s] [%s] %s%s\n", color, timestamp, prefix, fmt.Sprintf(format, a...), Reset)
 }
 
@@ -63,10 +68,9 @@ func printMessage(color, prefix, format string, a ...interface{}) {
 func PrintHostScanProgress(current, total int, target string) {
 	stdoutMux.Lock()
 	defer stdoutMux.Unlock()
-	// Use \r to return cursor to start of line for in-place updates, creating a dynamic progress line.
 	fmt.Printf("\r%s[INFO] [%s] Discovering hosts: %d/%d - %s...%s", Cyan, time.Now().Format("15:04:05"), current, total, target, Reset)
 	if current == total {
-		fmt.Println() // Add a newline after completion to ensure next output is on a new line.
+		fmt.Println()
 	}
 }
 
@@ -76,7 +80,7 @@ func PrintPortScanProgress(host string, current, total int) {
 	defer stdoutMux.Unlock()
 	fmt.Printf("\r%s[%s] [%s] Scanning ports for %s: %d/%d...%s", Green, time.Now().Format("15:04:05"), "SCAN", host, current, total, Reset)
 	if current == total {
-		fmt.Println() // Add a newline after completion.
+		fmt.Println()
 	}
 }
 
