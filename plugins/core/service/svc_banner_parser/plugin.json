@@ -1,0 +1,11 @@
+{
+    "name": "svc_banner_parser",
+    "version": "1.1.0",
+    "type": "service",
+    "entry": "plugin.py",
+    "description": "Parses service banners using regex signatures to identify software and versions.",
+    "author": "Revealr Core",
+    "inputs": [
+        "*"
+    ]
+}

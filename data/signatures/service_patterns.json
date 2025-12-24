@@ -1,0 +1,156 @@
+{
+    "ports": {
+        "21": [
+            {
+                "regex": "(?i)vsftpd (\\d+\\.\\d+\\.\\d+)",
+                "name": "vsFTPd",
+                "version": "{1}",
+                "cpe": "cpe:/a:vsftpd:vsftpd:{1}"
+            },
+            {
+                "regex": "(?i)vsftpd (\\d+\\.\\d+)",
+                "name": "vsFTPd",
+                "version": "{1}",
+                "cpe": "cpe:/a:vsftpd:vsftpd:{1}"
+            },
+            {
+                "regex": "(?i)proftpd (\\d+\\.\\d+\\.\\d+)",
+                "name": "ProFTPD",
+                "version": "{1}",
+                "cpe": "cpe:/a:proftpd:proftpd:{1}"
+            },
+            {
+                "regex": "(?i)FileZilla Server ([\\d\\.]+)",
+                "name": "FileZilla FTP",
+                "version": "{1}",
+                "cpe": "cpe:/a:filezilla-project:filezilla_server:{1}"
+            },
+            {
+                "regex": "(?i)220[ -]([^\\r\\n]+?) FTP",
+                "name": "FTP Server",
+                "version": "{1}",
+                "cpe": "cpe:/a:unknown:ftp_server:{1}"
+            }
+        ],
+        "22": [
+            {
+                "regex": "(?i)SSH-([\\d\\.]+)-OpenSSH_([\\d\\.]+p\\d+)",
+                "name": "OpenSSH",
+                "version": "{2}",
+                "cpe": "cpe:/a:openbsd:openssh:{2}"
+            },
+            {
+                "regex": "(?i)SSH-([\\d\\.]+)-OpenSSH_([\\d\\.]+)",
+                "name": "OpenSSH",
+                "version": "{2}",
+                "cpe": "cpe:/a:openbsd:openssh:{2}"
+            },
+            {
+                "regex": "(?i)SSH-([\\d\\.]+)-Dropbear_([\\d\\.]+)",
+                "name": "Dropbear SSH",
+                "version": "{2}",
+                "cpe": "cpe:/a:dropbear_ssh_project:dropbear_ssh:{2}"
+            },
+            {
+                "regex": "(?i)SSH-([\\d\\.]+)-libssh-([\\d\\.]+)",
+                "name": "libssh",
+                "version": "{2}",
+                "cpe": "cpe:/a:libssh:libssh:{2}"
+            }
+        ],
+        "23": [
+            {
+                "regex": "(?i)Microsoft TelnetD",
+                "name": "Microsoft TelnetD",
+                "version": "",
+                "cpe": "cpe:/o:microsoft:windows"
+            }
+        ],
+        "25": [
+            {
+                "regex": "(?i)postfix",
+                "name": "Postfix smtpd",
+                "version": "",
+                "cpe": "cpe:/a:postfix:postfix"
+            },
+            {
+                "regex": "(?i)esmtp sendmail (\\S+)",
+                "name": "Sendmail smtpd",
+                "version": "{1}",
+                "cpe": "cpe:/a:sendmail:sendmail:{1}"
+            },
+            {
+                "regex": "(?i)exim (\\S+)",
+                "name": "Exim smtpd",
+                "version": "{1}",
+                "cpe": "cpe:/a:exim:exim:{1}"
+            }
+        ],
+        "53": [
+            {
+                "regex": "(?i)dnsmasq-([\\d\\.]+)",
+                "name": "dnsmasq",
+                "version": "{1}",
+                "cpe": "cpe:/a:thekelleys:dnsmasq:{1}"
+            },
+            {
+                "regex": "(?i)bind ([\\d\\.]+)",
+                "name": "BIND",
+                "version": "{1}",
+                "cpe": "cpe:/a:isc:bind:{1}"
+            }
+        ],
+        "80": [
+            {
+                "regex": "(?i)Apache/([\\d\\.]+)",
+                "name": "Apache httpd",
+                "version": "{1}",
+                "cpe": "cpe:/a:apache:http_server:{1}"
+            },
+            {
+                "regex": "(?i)nginx/([\\d\\.]+)",
+                "name": "Nginx httpd",
+                "version": "{1}",
+                "cpe": "cpe:/a:nginx:nginx:{1}"
+            },
+            {
+                "regex": "(?i)Microsoft-IIS/([\\d\\.]+)",
+                "name": "Microsoft IIS httpd",
+                "version": "{1}",
+                "cpe": "cpe:/a:microsoft:iis:{1}"
+            },
+            {
+                "regex": "(?i)Werkzeug/([\\d\\.]+)",
+                "name": "Werkzeug WSGI",
+                "version": "{1}",
+                "cpe": "cpe:/a:werkzeug_project:werkzeug:{1}"
+            }
+        ]
+    },
+    "generic": [
+        {
+            "regex": "(?i)SSH-([\\d\\.]+)",
+            "name": "SSH",
+            "version": "{1}",
+            "cpe": "cpe:/a:unknown:ssh:{1}"
+        },
+        {
+            "regex": "(?i)Apache/([\\d\\.]+)",
+            "name": "Apache httpd",
+            "version": "{1}",
+            "cpe": "cpe:/a:apache:http_server:{1}"
+        },
+        {
+            "regex": "(?i)nginx/([\\d\\.]+)",
+            "name": "Nginx httpd",
+            "version": "{1}",
+            "cpe": "cpe:/a:nginx:nginx:{1}"
+        },
+        {
+            "regex": "(?i)http/",
+            "name": "HTTP",
+            "version": "",
+            "cpe": "cpe:/a:unknown:http_server"
+        }
+    ]
+}

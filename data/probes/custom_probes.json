@@ -1,0 +1,154 @@
+[
+  {
+    "probename": "GenericLines",
+    "protocol": "tcp",
+    "probestring": "\r\n\r\n",
+    "ports": [],
+    "sslports": [],
+    "matches": [
+      {"service": "http", "pattern": "^HTTP/1\\.[01]", "version_info": ""},
+      {"service": "smtp", "pattern": "^220 ", "version_info": ""},
+      {"service": "ftp", "pattern": "^220 ", "version_info": ""},
+      {"service": "ssh", "pattern": "^SSH-", "version_info": ""},
+      {"service": "imap", "pattern": "^\\* OK", "version_info": ""},
+      {"service": "pop3", "pattern": "^\\+OK", "version_info": ""},
+      {"service": "redis", "pattern": "^-ERR", "version_info": ""},
+      {"service": "mongodb", "pattern": "It looks like you are trying to access MongoDB", "version_info": ""}
+    ],
+    "soft_matches": [
+      {"service": "generic-tcp", "pattern": "^[\\x20-\\x7E]{5,}", "version_info": ""},
+      {"service": "binary", "pattern": "^[^\\x20-\\x7E]{5,}", "version_info": ""}
+    ],
+    "timeout": 5 
+  },
+  {
+    "probename": "NULL",
+    "protocol": "tcp",
+    "probestring": "",
+    "ports": [],
+    "sslports": [],
+    "matches": [
+      {"service": "http", "pattern": "^HTTP/1\\.[01]", "version_info": ""},
+      {"service": "smtp", "pattern": "^220 ", "version_info": ""},
+      {"service": "ftp", "pattern": "^220 ", "version_info": ""},
+      {"service": "ssh", "pattern": "^SSH-", "version_info": ""},
+      {"service": "telnet", "pattern": "(?:login:|Username:)", "version_info": ""},
+      {"service": "mysql", "pattern": "mysql_native_password", "version_info": ""},
+      {"service": "rdp", "pattern": "^\\x03\\x00", "version_info": ""}
+    ],
+    "soft_matches": [
+      {"service": "unknown-tcp", "pattern": ".", "version_info": ""}
+    ],
+    "timeout": 3 
+  },
+  {
+    "probename": "HTTP_GET",
+    "protocol": "tcp",
+    "probestring": "GET / HTTP/1.0\\r\\nHost: example.com\\r\\nUser-Agent: Revealr/1.0\\r\\n\\r\\n",
+    "ports": [80, 8080, 8000, 8888],
+    "sslports": [443, 8443],
+    "matches": [
+      {"service": "Apache httpd", "pattern": "Server: Apache/([\\d\\.]+)", "version_info": "$1"},
+      {"service": "Nginx httpd", "pattern": "Server: nginx/([\\d\\.]+)", "version_info": "$1"},
+      {"service": "Microsoft IIS httpd", "pattern": "Server: Microsoft-IIS/([\\d\\.]+)", "version_info": "$1"},
+      {"service": "HTTP Server", "pattern": "Server: (.*)", "version_info": "$1"},
+      {"service": "WordPress HTTPd", "pattern": "X-Powered-By: WordPress|/wp-includes/|/wp-content/", "version_info": ""}
+    ],
+    "soft_matches": [
+      {"service": "Possible HTTP", "pattern": "HTTP", "version_info": ""}
+    ],
+    "timeout": 8 
+  },
+  {
+    "probename": "FTP_HELP",
+    "protocol": "tcp",
+    "probestring": "HELP\\r\\n",
+    "ports": [21],
+    "sslports": [],
+    "matches": [
+      {"service": "vsFTPd", "pattern": "vsftpd ([\\d\\.]+)", "version_info": "$1"},
+      {"service": "ProFTPD", "pattern": "ProFTPD ([\\d\\.]+)", "version_info": "$1"},
+      {"service": "Pure-FTPd", "pattern": "Pure-FTPd", "version_info": ""}
+    ],
+    "soft_matches": [],
+    "timeout": 5 
+  },
+  {
+    "probename": "SMTP_HELO",
+    "protocol": "tcp",
+    "probestring": "HELO revealr.scanner\\r\\n",
+    "ports": [25, 587],
+    "sslports": [465],
+    "matches": [
+      {"service": "Postfix smtpd", "pattern": "Postfix", "version_info": ""},
+      {"service": "Sendmail smtpd", "pattern": "Sendmail", "version_info": ""},
+      {"service": "Exim smtpd", "pattern": "Exim", "version_info": ""}
+    ],
+    "soft_matches": [],
+    "timeout": 8 
+  },
+  {
+    "probename": "POP3_USER",
+    "protocol": "tcp",
+    "probestring": "USER anonymous\\r\\n",
+    "ports": [110],
+    "sslports": [995],
+    "matches": [
+      {"service": "Dovecot POP3", "pattern": "dovecot", "version_info": ""},
+      {"service": "Courier POP3", "pattern": "Courier-POP3", "version_info": ""}
+    ],
+    "soft_matches": [],
+    "timeout": 5 
+  },
+  {
+    "probename": "IMAP_CAPABILITY",
+    "protocol": "tcp",
+    "probestring": "a001 CAPABILITY\\r\\n",
+    "ports": [143],
+    "sslports": [993],
+    "matches": [
+      {"service": "Dovecot IMAP", "pattern": "dovecot", "version_info": ""},
+      {"service": "Courier IMAP", "pattern": "Courier-IMAP", "version_info": ""}
+    ],
+    "soft_matches": [],
+    "timeout": 5 
+  },
+  {
+    "probename": "MySQL_HANDSHAKE",
+    "protocol": "tcp",
+    "probestring": "",
+    "ports": [3306],
+    "sslports": [],
+    "matches": [
+      {"service": "MySQL", "pattern": "mysql_native_password", "version_info": ""},
+      {"service": "MariaDB", "pattern": "MariaDB", "version_info": ""}
+    ],
+    "soft_matches": [],
+    "timeout": 5 
+  },
+  {
+    "probename": "Redis_PING",
+    "protocol": "tcp",
+    "probestring": "PING\\r\\n",
+    "ports": [6379],
+    "sslports": [],
+    "matches": [
+      {"service": "Redis", "pattern": "\\+PONG", "version_info": ""}
+    ],
+    "soft_matches": [],
+    "timeout": 3 
+  },
+  {
+    "probename": "RDP_COOKIE",
+    "protocol": "tcp",
+    "probestring":"\\x03\\x00\\x00\\x0b\\x06\\xe0\\x00\\x00\\x00\\x00\\x00",
+    "ports": [3389],
+    "sslports": [],
+    "matches": [
+      {"service": "Microsoft RDP", "pattern": "^\\x03\\x00.\\x06\\xe0", "version_info": ""},
+      {"service": "Microsoft RDP", "pattern": "RDPC|Remote Desktop Protocol", "version_info": ""}
+    ],
+    "soft_matches": [],
+    "timeout": 8 
+  }
+]

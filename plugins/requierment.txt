@@ -1,0 +1,9 @@
+# plugins/requirements.txt
+grpcio
+grpcio-tools
+# Add other Python libraries as you need them (e.g., for specific enumeration tasks)
+# requests
+# paramiko
+# python-whois
+# dnspython
+# pyyaml

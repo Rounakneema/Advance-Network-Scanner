@@ -1,0 +1,11 @@
+{
+    "name": "my_verification_plugin",
+    "version": "0.1.0",
+    "type": "service",
+    "entry": "plugin.py",
+    "description": "Auto-generated plugin my_verification_plugin",
+    "author": "Local User",
+    "inputs": [
+        "service:http" 
+    ]
+}

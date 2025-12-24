@@ -1,0 +1,84 @@
+{
+    "patterns": [
+        {
+            "match": "microsoft iis",
+            "os": "Windows",
+            "cpe": "cpe:/o:microsoft:windows"
+        },
+        {
+            "match": "microsoft telnetd",
+            "os": "Windows",
+            "cpe": "cpe:/o:microsoft:windows"
+        },
+        {
+            "match": "microsoft exchange",
+            "os": "Windows",
+            "cpe": "cpe:/o:microsoft:windows"
+        },
+        {
+            "match": "rdp",
+            "os": "Windows",
+            "cpe": "cpe:/o:microsoft:windows"
+        },
+        {
+            "match": "windows",
+            "os": "Windows",
+            "cpe": "cpe:/o:microsoft:windows"
+        },
+        {
+            "match": "vsftpd",
+            "os": "Linux",
+            "cpe": "cpe:/o:linux:linux_kernel"
+        },
+        {
+            "match": "proftpd",
+            "os": "Linux",
+            "cpe": "cpe:/o:linux:linux_kernel"
+        },
+        {
+            "match": "openssh",
+            "os": "Linux/Unix",
+            "cpe": "cpe:/o:linux:linux_kernel"
+        },
+        {
+            "match": "apache",
+            "os": "Linux/Unix",
+            "cpe": "cpe:/o:linux:linux_kernel"
+        },
+        {
+            "match": "nginx",
+            "os": "Linux/Unix",
+            "cpe": "cpe:/o:linux:linux_kernel"
+        },
+        {
+            "match": "postfix",
+            "os": "Linux/Unix",
+            "cpe": "cpe:/o:linux:linux_kernel"
+        },
+        {
+            "match": "ubuntu",
+            "os": "Linux (Ubuntu)",
+            "cpe": "cpe:/o:canonical:ubuntu_linux"
+        },
+        {
+            "match": "debian",
+            "os": "Linux (Debian)",
+            "cpe": "cpe:/o:debian:debian_linux"
+        },
+        {
+            "match": "centos",
+            "os": "Linux (CentOS)",
+            "cpe": "cpe:/o:centos:centos"
+        },
+        {
+            "match": "freebsd",
+            "os": "FreeBSD",
+            "cpe": "cpe:/o:freebsd:freebsd"
+        },
+        {
+            "match": "android",
+            "os": "Android",
+            "cpe": "cpe:/o:google:android"
+        }
+    ]
+}

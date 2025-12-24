@@ -1,0 +1,11 @@
+{
+    "name": "vuln_cve_mapper",
+    "version": "1.0.0",
+    "type": "vuln",
+    "entry": "plugin.py",
+    "description": "Maps detected service versions to high-profile CVEs using an embedded database.",
+    "author": "Revealr Core",
+    "inputs": [
+        "service:*"
+    ]
+}

@@ -1,0 +1,74 @@
+// internal/proto/revealr.proto
+syntax = "proto3";
+
+package revealr_proto;
+
+option go_package = "revealr/internal/proto"; 
+
+// Service definition: Go (client) sends data to Python (server)
+service PythonService {
+  rpc ProcessScanResult (ScanResultRequest) returns (ScanResultResponse);
+}
+
+// Service definition: Python (client) sends updates back to Go (server)
+service GoService {
+  rpc UpdatePortDetail (PortDetailUpdate) returns (UpdateResponse);
+}
+
+// Messages for Go to Python communication
+message ScanResultRequest {
+  string scan_id = 1;
+  Host host = 2;
+  ScanConfig scan_config = 3; // NEW: Add scan_config to ScanResultRequest
+}
+
+message ScanResultResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// Messages for Python to Go communication (updates)
+message PortDetailUpdate {
+  string scan_id = 1;
+  string host_id = 2;
+  int32 port_number = 3;
+  string protocol = 4;
+  string service_name = 5;
+  string service_version = 6;
+  map<string, string> details = 7;
+}
+
+message UpdateResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// NEW: Message to carry scan configuration details to Python
+message ScanConfig {
+  string scan_timing = 1; // e.g., "default", "fast", "aggressive", "slow", "insane"
+  bool debug = 2; // Pass debug mode to Python
+  // Add other config fields if Python needs them (e.g., specific ports, scan_mode)
+}
+
+// Core Data Structures (mirroring Go's core/types.go for protobuf)
+message Host {
+  string id = 1;
+  string ip_address = 2;
+  bool is_up = 3;
+  repeated Port ports = 4;
+  map<string, string> details = 5;
+}
+
+message Port {
+  int32 port_number = 1;
+  string protocol = 2;
+  bool is_open = 3;
+  Service service = 4;
+  map<string, string> details = 5;
+}
+
+message Service {
+  string name = 1;
+  string version = 2;
+  map<string, string> details = 3;
+}

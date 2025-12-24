@@ -1,0 +1,16 @@
+{
+    "name": "exposed_files",
+    "version": "1.0.0",
+    "type": "auth",
+    "entry": "plugin.py",
+    "description": "Checks for sensitive files exposed on the web server (e.g., .env, .git).",
+    "author": "Revealr Core",
+    "inputs": [
+        "service:http",
+        "service:https",
+        "port:80",
+        "port:443",
+        "port:8080",
+        "port:8443"
+    ]
+}

@@ -1,0 +1,11 @@
+{
+    "name": "remediation_advisor",
+    "version": "1.0.0",
+    "type": "intelligence",
+    "entry": "plugin.py",
+    "description": "Provides actionable remediation steps for detected issues.",
+    "author": "Revealr Core",
+    "inputs": [
+        "service:*"
+    ]
+}

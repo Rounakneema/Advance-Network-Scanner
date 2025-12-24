@@ -1,0 +1,11 @@
+{
+    "name": "vuln_config_issues",
+    "version": "1.0.0",
+    "type": "vuln",
+    "entry": "plugin.py",
+    "description": "Identifies configuration weaknesses such as deprecated SSL/TLS protocols.",
+    "author": "Revealr Core",
+    "inputs": [
+        "service:*"
+    ]
+}

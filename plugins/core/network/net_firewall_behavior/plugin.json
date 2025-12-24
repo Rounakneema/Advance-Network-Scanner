@@ -1,0 +1,11 @@
+{
+    "name": "net_firewall_behavior",
+    "version": "1.0.0",
+    "type": "network",
+    "entry": "plugin.py",
+    "description": "Detects firewall presence based on port states and response codes.",
+    "author": "Revealr Core",
+    "inputs": [
+        "*"
+    ]
+}

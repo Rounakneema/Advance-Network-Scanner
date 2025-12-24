@@ -1,0 +1,17 @@
+{
+    "name": "web_tech_stack",
+    "version": "1.0.0",
+    "type": "web",
+    "entry": "plugin.py",
+    "description": "Identifies web server, framework, CMS, and programming language from HTTP headers and body.",
+    "author": "Revealr Core",
+    "inputs": [
+        "service:http",
+        "service:https",
+        "port:80",
+        "port:443",
+        "port:8080",
+        "port:8081",
+        "port:8443"
+    ]
+}

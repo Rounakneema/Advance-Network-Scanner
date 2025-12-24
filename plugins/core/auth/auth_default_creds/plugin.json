@@ -1,0 +1,18 @@
+{
+    "name": "auth_default_creds",
+    "version": "1.0.0",
+    "type": "auth",
+    "entry": "plugin.py",
+    "description": "Checks for default credentials on services supporting Basic Authentication.",
+    "author": "Revealr Core",
+    "inputs": [
+        "service:http",
+        "service:https",
+        "port:80",
+        "port:443",
+        "port:8080",
+        "port:8443",
+        "port:22",
+        "port:21"
+    ]
+}

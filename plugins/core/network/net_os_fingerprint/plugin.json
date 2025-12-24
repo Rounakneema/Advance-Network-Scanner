@@ -1,0 +1,11 @@
+{
+    "name": "net_os_fingerprint",
+    "version": "1.0.0",
+    "type": "network",
+    "entry": "plugin.py",
+    "description": "Infers Operating System from discovered service patterns.",
+    "author": "Revealr Core",
+    "inputs": [
+        "*"
+    ]
+}

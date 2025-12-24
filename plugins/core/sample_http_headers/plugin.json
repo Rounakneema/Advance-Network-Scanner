@@ -1,0 +1,12 @@
+{
+    "name": "sample_http_headers",
+    "version": "1.0.0",
+    "type": "web",
+    "entry": "plugin.py",
+    "description": "Extracts interesting HTTP headers.",
+    "author": "Revealr Core",
+    "inputs": [
+        "service:http",
+        "service:https"
+    ]
+}

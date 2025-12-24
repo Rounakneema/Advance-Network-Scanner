@@ -1,0 +1,18 @@
+{
+    "name": "svc_tls_inspector",
+    "version": "1.0.0",
+    "type": "service",
+    "entry": "plugin.py",
+    "description": "Active probe to inspect SSL/TLS certificates and configuration.",
+    "author": "Revealr Core",
+    "inputs": [
+        "service:ssl",
+        "service:https",
+        "service:tls",
+        "port:443",
+        "port:8443",
+        "port:465",
+        "port:993",
+        "port:995"
+    ]
+}

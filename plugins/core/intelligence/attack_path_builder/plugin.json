@@ -1,0 +1,11 @@
+{
+    "name": "attack_path_builder",
+    "version": "1.0.0",
+    "type": "intelligence",
+    "entry": "plugin.py",
+    "description": "Correlates findings to construct potential attack paths.",
+    "author": "Revealr Core",
+    "inputs": [
+        "service:*"
+    ]
+}
