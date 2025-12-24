@@ -1,0 +1,20 @@
+# data/configs/default_config.yaml
+# Default configuration for Revealr scans
+
+# General Scan Settings
+targets: [] # Can be overridden by CLI args (e.g., --target example.com)
+ports: "top1000" # Options: "all", "top1000", or comma-separated list like "80,443,22-25"
+scan_mode: "connect" # Options: "connect" (for basic scanner)
+host_discovery: ["icmp"] # Options: "icmp", "tcp-probe"
+exclude_hosts: []
+debug: false
+
+# Scanner Specific Settings
+timeout: "3s" # Timeout for each port scan attempt (e.g., 1s, 500ms)
+retries: 1 # Number of retries for a failed port scan (not fully implemented yet)
+concurrency: 1000 # Max concurrent goroutines/operations for port scanning
+
+# Future Phases (placeholders)
+enable_osint: false
+osint_sources: []
+python_plugin_port: "50051"
