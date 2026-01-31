@@ -7,3 +7,4 @@ grpcio-tools
 # python-whois
 # dnspython
 # pyyaml
+protobuf>=6.33.5 # not directly required, pinned by Snyk to avoid a vulnerability
